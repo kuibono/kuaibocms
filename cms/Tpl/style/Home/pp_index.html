@@ -1,0 +1,584 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="google-site-verification" content="-SKo43TiGRQj4nStV7okysj2cxy2M8iiSGqq0psZm4M" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{$title}</title>
+<meta name="keywords" content="{$keywords}">
+<meta name="description" content="{$description}">
+<include file="Home:p_header" />
+</head>
+<body>
+<include file="Home:pp_header" />
+<!-- // wrap Start -->
+<div class="wrap w960">
+	<div style="margin-top:10px; clear:both;"></div>
+	<div class="maxBox" id="latest-focus">
+		<div class="latest-tab">
+			<ul>
+				<li id="latest1" onMouseOver="setTab('latest',1,5);" class="active">热门影片推荐</li>
+				<li id="latest2" onMouseOver="setTab('latest',2,5);" class="">最新电视剧更新</li>
+				<li id="latest3" onMouseOver="setTab('latest',3,5);" class="">最新电影更新</li>
+				<li id="latest4" onMouseOver="setTab('latest',4,5);" class="">最新动漫更新</li>
+				<li id="latest5" onMouseOver="setTab('latest',5,5);" class="">最新综艺更新</li>				
+			</ul>
+		</div>
+		<div class="box box-blue-bold">
+			<div id="con_latest_1" class="hot-latest active" style="display: block; ">
+            	<php>$news=ff_mysql_vod('limit:7;order:vod_stars desc,vod_addtime desc');</php>
+				<ol class="pic-list">
+                	<fflist name="news" id="ppvod">
+					<li>
+                    <a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+
+                    <img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_title}">
+                    <label class="time">{$ppvod.vod_title}</label></a>
+                    <p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p></li>
+                    </fflist>				
+				</ol>
+				<!-- // pic-list End -->
+				<ul class="txt-list">
+                	<php>$news_2=ff_mysql_vod('limit:7,12;order:vod_stars desc,vod_addtime desc');</php>
+                	<fflist name="news_2" id="ppvod">
+				    <li>
+                    <span><if condition="$i lt 10">0{$i}<else />{$i}</if>.</span>
+                    <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a>
+                    </li>
+                    </fflist>			
+				</ul> 
+				<!-- // txt-list End -->
+			</div>
+            <php>$arr=array(2,1,3,4)</php>
+            <fflist name="arr" id="ppcid" key="k">
+			<div id="con_latest_<php>echo($k+1)</php>" class="hide" style="display:none;">
+				<ol class="pic-list">
+                	<php>$vod_gold = ff_mysql_vod('cid:'.$ppcid.';limit:7;order:vod_addtime desc,vod_gold desc');</php>
+                    <fflist name="vod_gold" id="ppvod">
+					<li>
+                    <a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+                    <img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+                    <label class="time">{$ppvod.vod_title}</label></a>
+                    <p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p></li>
+                    </fflist>
+                </ol>
+				<!-- // pic-list End -->
+				<ul class="txt-list">
+                	<php>$vod_gold=ff_mysql_vod('cid:'.$ppcid.';limit:7,12;order:vod_addtime desc,vod_gold desc');</php>
+                	<fflist name="vod_gold" id="ppvod">
+				    <li>
+                    <span><if condition="$i lt 10">0{$i}<else />{$i}</if>.</span>
+                    <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a>
+                    </li>
+                    </fflist>			
+				</ul> 
+				<!-- // txt-list End -->
+			</div>
+            </fflist>
+		</div>
+	</div>
+	<!-- // maxBox End -->	
+	<div class="maxBox" id="tv">
+		<div class="box ui-qire fn-clear">
+			<div class="conBox ui-tab fn-left" id="qire-tv">
+				<div class="caption fn-clear">	
+					<h2 class="hide-txt"><a href="{:getlistname(2,'list_url')}">电视剧<em>TV</em></a></h2>
+					<ul class="ui-tab-nav">
+					    <li id="tv1" onMouseOver="setTab('tv',1,6);" class="active">推荐</li>
+                        <php>$menu=M('list')->where(array('list_pid'=>2))->order(array('list_id'=>'asc'))->select();</php>
+                        <fflist name="menu" id="menu1">
+						<li style="width:69px;" id="tv<php>echo($i+1)</php>" onMouseOver="setTab('tv',<php>echo($i+1)</php>,6);">{$menu1.list_name|msubstr=0,3}</li>
+                        </fflist>
+					</ul>
+				</div>
+				<div class="content">
+                    <div id="con_tv_1" class="ui-tab-item  ui-tab-item-hot">
+						<div class="sideRow fn-left">
+                        	<php>$focus=ff_mysql_vod('limit:1;cid:2;order:vod_stars desc,vod_addtime desc')</php>
+                            <fflist name="focus" id="ppvod">
+							<div class="ui-focus">
+								<a class="play-pic" href="{$ppvod.vod_readurl}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_name}</label>
+								</a>
+								<ul class="ui-focus-text">
+									<li><strong>状态：</strong>{$ppvod.vod_title}</li>
+									<li style="height:20px; overflow:hidden;"><strong>主演：</strong>{$ppvod.vod_actor|ff_search_url}
+									</li>
+									<li>
+										<strong>简介：</strong>{$ppvod.vod_content|msubstr=0,76}...
+									</li>
+								</ul>
+							</div>
+                            </fflist>
+							<!-- // ui-focus End -->
+							<div class="ui-will">
+								<h4>今日好看的电视剧</h4>
+								<ul class="ui-will-cnt">
+                                	<php>$today_tv_hot=ff_mysql_vod('cid:2;limit:5;order:vod_hits_day desc,vod_id desc;');</php>
+                                    <fflist name="today_tv_hot" id="ppvod">
+									<li><span style="float:right; color:#C06">{$ppvod.vod_hits_day}℃</span>
+                                    <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a><span style="padding-left:5px; color:#999;">{$ppvod.vod_title}</span></li>
+                                    </fflist>
+								</ul>
+							</div>
+							<!-- // ui-synch End -->
+						</div>
+						<!-- // sideRow End -->
+                        <php>$tv_hot=ff_mysql_vod('cid:2;limit:1,6;order:vod_stars desc,vod_addtime desc');</php>
+						<ol class="pic-list pic-list-focus fn-right">
+                        	<fflist name="tv_hot" id="ppvod">
+							<li>
+								<a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_title}</label>
+								</a>
+								<p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p>
+								<p class="txt">{$ppvod.vod_actor|ff_search_url}</p>
+								<p class="txt">
+									<span class="ratbar">
+										<span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+									</span>
+									<strong class="ratbar-num">{$ppvod.vod_gold}</strong>
+								</p>
+							</li>
+						    </fflist>
+                        </ol>
+		                <!-- // pic-list End -->
+					</div>
+					<!-- // ui-tab-item End -->
+                   	<!-- 大陆电视剧 tab 开始-->
+                    <fflist name="menu" id="menu2" key="k">
+					<div id="con_tv_<php>echo($k+1)</php>" class="ui-tab-item fn-hide">
+                    	<php>$menu_vod=ff_mysql_vod('cid:'.$menu2['list_id'].';limit:10;order:vod_stars desc,vod_addtime desc');</php>
+						<ol class="pic-list">
+                            <fflist name="menu_vod" id="ppvod">
+							<li>
+								<a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_title}</label>
+								</a>
+								<p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p>
+								<p class="txt">{$ppvod.vod_actor|ff_search_url}</p>
+								<p class="txt">
+									<span class="ratbar">
+										<span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+									</span>
+									<strong class="ratbar-num">{$ppvod.vod_gold}</strong>
+								</p>
+							</li>
+						    </fflist>
+                        </ol>
+				    <!-- // pic-list End -->
+					</div>
+                    </fflist>
+				</div>
+            </div>
+			<!-- // conBox End -->
+			<div class="sideBar fn-right">
+				<div class="ui-sort">
+					<div class="caption fn-clear">
+						<span><a href="{:getlistname(2,'list_url')}">更多</a></span>
+						<h3>电视剧分类</h3>
+					</div>
+					<div class="content">
+						<dl class="taglist">
+                        <php>$vod_type=M('list')->where(array('list_pid'=>2))->select()</php>
+                        	<fflist name="vod_type" id="ppvodson">
+							<dd><a href="{:getlistname($ppvodson['list_id'],'list_url')}">{$ppvodson.list_name|msubstr=0,3}</a></dd>
+                            </fflist>
+						</dl>
+								<?php
+$s_area=array('大陆','香港','台湾','港台','欧美','日本','韩国','日韩','新加坡','泰国','俄罗斯','其他');
+$s_language=array('国语','粤语','韩语','日语','英语','其他');
+$s_year=array('2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000','1999');
+if($_GET[year]) $u_year="-year-".$_GET[year];else $u_year=NULL;if($_GET[area]) $u_area="-area-".$_GET[area];else $u_area=NULL;if($_GET[language]) $u_language="-language-".$_GET[language];else $u_order=NULL;if($_GET[order]) $u_order="-order-".$_GET[order];else $u_order=NULL;
+?>
+          <dl class="taglist">
+<dt>年份</dt>
+
+<?php foreach($s_year as $yid=>$yvalue){ if($_GET[year]==$yvalue) $class=" class='active'";else $class=NULL;echo "<dd><a href=".$root."vod-show-id-2".$_GET[id]."-year-".$yvalue.$u_area.$u_language.$u_order.".html>".$yvalue."</a></dd>";} ?>
+     </dl>
+					</div>
+				</div>
+				<!-- // ui-sort End -->	
+			   	<div class="ui-top-tab fn-right">
+					<div class="caption">
+						<h3><a href="{:getlistname(2,'list_url')}">电视剧排行榜</a></h3>
+					</div>
+					<div class="content">
+                    	<php>$hot_tv=ff_mysql_vod('cid:2;limit:10;order:vod_gold desc,vod_hits desc');</php>			
+						<ul class="ul-top">
+                        	<fflist name="hot_tv" id="ppvod">
+							<li><span><strong>{$ppvod.vod_gold}</strong></span><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></li>
+                            </fflist>
+                        </ul>
+						<!-- // ul-top End -->
+					</div>
+				</div>
+				<!-- // topBox End -->	
+			</div>
+		</div>
+	</div>
+	<!-- // maxBox End -->	
+	<div class="maxBox" id="movie">
+		<div class="box ui-qire fn-clear">
+			<div class="conBox fn-left" id="qire-movie">
+				<div class="caption fn-clear">		
+					<h2 class="hide-txt"><a href="{:getlistname(1,'list_url')}">电影<em>Movie</em></a></h2>
+					<ul class="ui-tab-nav">
+					    <li id="mv1" onMouseOver="setTab('mv',1,9);" class="active">推荐</li>
+                        <php>$menu_m=M('list')->where(array('list_pid'=>1))->order(array('list_id'=>'asc'))->select();</php>
+                        <fflist name="menu_m" id="menu_m1">
+						<li id="mv<php>echo($i+1)</php>" onMouseOver="setTab('mv',<php>echo($i+1)</php>,9);">{$menu_m1.list_name|msubstr=0,2}</li>
+                        </fflist>
+					</ul>
+				</div>
+	            <div class="content">
+					<div id="con_mv_1" class="ui-tab-item ui-tab-item-hot">
+						<div class="sideRow fn-left">
+							<php>$focus=ff_mysql_vod('limit:1;cid:1;order:vod_stars desc,vod_addtime desc')</php>
+                            <fflist name="focus" id="ppvod">
+							<div class="ui-focus">
+								<a class="play-pic" href="{$ppvod.vod_readurl}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_name}</label>
+								</a>
+								<ul class="ui-focus-text">
+									<li><strong>状态：</strong>{$ppvod.vod_title}</li>
+									<li style="height:20px; overflow:hidden;"><strong>主演：</strong>{$ppvod.vod_actor|ff_search_url}
+									</li>
+									<li>
+										<strong>简介：</strong>{$ppvod.vod_content|msubstr=0,76}...
+									</li>
+								</ul>
+							</div>
+                            </fflist>
+							<!-- // ui-focus End -->
+ 
+							<div class="ui-will">
+								<h4>今日好看的电影</h4>
+								<ul class="ui-will-cnt">
+                                	<php>$today_tv_hot=ff_mysql_vod('cid:1;limit:5;order:vod_hits_day desc,vod_id desc;');</php>
+                                    <fflist name="today_tv_hot" id="ppvod">
+									<li><span style="float:right; color:#C06">{$ppvod.vod_hits_day}℃</span>
+                                    <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a><span style="padding-left:5px; color:#999;">{$ppvod.vod_title}</span></li>
+                                    </fflist>
+								</ul>
+							</div>
+							<!-- // ui-synch End -->
+						</div>
+						<!-- // sideRow End -->
+ 
+						<!-- 热门电影开始 -->
+						<php>$tv_hot=ff_mysql_vod('cid:1;limit:1,6;order:vod_stars desc,vod_addtime desc');</php>
+						<ol class="pic-list pic-list-focus fn-right">
+                        	<fflist name="tv_hot" id="ppvod">
+							<li>
+								<a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_title}</label>
+								</a>
+								<p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p>
+								<p class="txt">{$ppvod.vod_actor|ff_search_url}</p>
+								<p class="txt">
+									<span class="ratbar">
+										<span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+									</span>
+									<strong class="ratbar-num">{$ppvod.vod_gold}</strong>
+								</p>
+							</li>
+						    </fflist>
+                        </ol>
+						<!-- 热门电影结束 -->
+                    </div>
+					<!-- // ui-tab-item End -->
+					
+					<!-- 动作片 tab 开始-->
+                    <fflist name="menu_m" id="menu_m2" key="k">
+					<div id="con_mv_<php>echo($k+1)</php>" class="ui-tab-item fn-hide">
+                    	<php>$menu_vod=ff_mysql_vod('cid:'.$menu_m2['list_id'].';limit:10;order:vod_stars desc,vod_addtime desc');</php>
+						<ol class="pic-list">
+                            <fflist name="menu_vod" id="ppvod">
+							<li>
+								<a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_title}</label>
+								</a>
+								<p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p>
+								<p class="txt">{$ppvod.vod_actor|ff_search_url}</p>
+								<p class="txt">
+									<span class="ratbar">
+										<span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+									</span>
+									<strong class="ratbar-num">{$ppvod.vod_gold}</strong>
+								</p>
+							</li>
+						    </fflist>
+                        </ol>
+				    <!-- // pic-list End -->
+					</div>
+                    </fflist>
+					
+                </div>
+			</div>
+			<!-- // conBox End -->
+            <div class="sideBar fn-right">
+				<div class="ui-sort">
+					<div class="caption fn-clear">
+						<span><a href="{:getlistname(1,'list_url')}">更多</a></span>
+						<h3>电影分类</h3>
+					</div>
+					<div class="content">
+						<dl class="taglist">
+                        <php>$vod_type=M('list')->where(array('list_pid'=>1))->select()</php>
+                        	<fflist name="vod_type" id="ppvodson">
+							<dd><a href="{:getlistname($ppvodson['list_id'],'list_url')}">{$ppvodson.list_name|msubstr=0,2}</a></dd>
+                            </fflist>
+						</dl>
+								<?php
+$s_area=array('大陆','香港','台湾','港台','欧美','日本','韩国','日韩','新加坡','泰国','俄罗斯','其他');
+$s_language=array('国语','粤语','韩语','日语','英语','其他');
+$s_year=array('2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000','1999');
+if($_GET[year]) $u_year="-year-".$_GET[year];else $u_year=NULL;if($_GET[area]) $u_area="-area-".$_GET[area];else $u_area=NULL;if($_GET[language]) $u_language="-language-".$_GET[language];else $u_order=NULL;if($_GET[order]) $u_order="-order-".$_GET[order];else $u_order=NULL;
+?>
+          <dl class="taglist">
+<dt>年份</dt>
+
+<?php foreach($s_year as $yid=>$yvalue){ if($_GET[year]==$yvalue) $class=" class='active'";else $class=NULL;echo "<dd><a href=".$root."vod-show-id-1".$_GET[id]."-year-".$yvalue.$u_area.$u_language.$u_order.".html>".$yvalue."</a></dd>";} ?>
+     </dl>
+
+					</div>
+				</div>
+				<!-- // ui-sort End -->	
+ 
+			   	<div class="ui-top-tab fn-right">
+					<div class="caption">
+						<h3><a href="{:getlistname(1,'list_url')}">电影排行榜</a></h3>
+					</div>
+					<div class="content">
+                    	<php>$hot_tv=ff_mysql_vod('cid:1;limit:10;order:vod_gold desc,vod_hits desc');</php>			
+						<ul class="ul-top">
+                        	<fflist name="hot_tv" id="ppvod">
+							<li><span><strong>{$ppvod.vod_gold}</strong></span><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></li>
+                            </fflist>
+                        </ul>
+						<!-- // ul-top End -->
+					</div>
+				</div>
+				<!-- // topBox End -->	
+			</div>
+		</div>
+		
+	</div>
+	<!-- // maxBox End -->
+    <!-- 动漫内容开始 -->
+	<div class="maxBox" id="comic">
+		<div class="box ui-qire fn-clear">
+			<div class="conBox fn-left" id="qire-comic">
+				<div class="caption fn-clear">		
+					<h2 class="hide-txt fn-left"><a href="{:getlistname(3,'list_url')}">经典动漫<em>Comic</em></a></h2>
+				</div>
+				<div class="content">
+				
+				  <!-- 经典动漫热门开始 -->
+				    <div class="ui-tab-item">
+						<php>$menu_vod=ff_mysql_vod('cid:3;limit:10;order:vod_stars desc,vod_addtime desc');</php>
+						<ol class="pic-list">
+                            <fflist name="menu_vod" id="ppvod">
+							<li>
+								<a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_title}</label>
+								</a>
+								<p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p>
+								<p class="txt">{$ppvod.vod_actor|ff_search_url}</p>
+								<p class="txt">
+									<span class="ratbar">
+										<span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+									</span>
+									<strong class="ratbar-num">{$ppvod.vod_gold}</strong>
+								</p>
+							</li>
+						    </fflist>
+                        </ol>
+						<!-- // pic-list End -->
+					</div>
+					<!-- // ui-tab-item End -->
+				  <!-- 经典动漫热门结束 -->
+             	</div>
+			</div>
+			<!-- // conBox End -->
+			<div class="sideBar fn-right">
+				<div class="ui-sort">
+					<div class="caption fn-clear">
+						<span><a href="{:getlistname(3,'list_url')}">更多</a></span>
+						<h3>动漫分类</h3>
+					</div>
+								<?php
+$s_area=array('大陆','香港','台湾','港台','欧美','日本','韩国','日韩','新加坡','泰国','俄罗斯','其他');
+$s_language=array('国语','粤语','韩语','日语','英语','其他');
+$s_year=array('2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000','1999');
+if($_GET[year]) $u_year="-year-".$_GET[year];else $u_year=NULL;if($_GET[area]) $u_area="-area-".$_GET[area];else $u_area=NULL;if($_GET[language]) $u_language="-language-".$_GET[language];else $u_order=NULL;if($_GET[order]) $u_order="-order-".$_GET[order];else $u_order=NULL;
+?>
+          <div class="content">
+            <dl class="taglist">
+              <dt>地区</dt>
+<?php 
+            foreach($s_area as $aid=>$avalue){ if($_GET[area]==$avalue) $class=" class='active'";else $class=NULL;echo "<dd $class><a href=".$root."vod-show-id-3".$_GET[id].$u_year."-area-".urlencode($avalue).$u_language.$u_order.".html>".$avalue."</a></dd>";} ?>
+            </dl></eq>
+            <dl class="taglist">
+              <dt>年份</dt>
+<?php foreach($s_year as $yid=>$yvalue){ if($_GET[year]==$yvalue) $class=" class='active'";else $class=NULL;echo "<dd $class><a href=".$root."vod-show-id-3".$_GET[id]."-year-".$yvalue.$u_area.$u_language.$u_order.".html>".$yvalue."</a></dd>";} ?>
+            </dl>
+					</div>
+				</div>
+				<!-- // ui-sort End -->	
+				<div class="ui-top-tab fn-right">
+					<div class="caption">
+						<h3><a href="{:getlistname(3,'list_url')}">动漫排行榜</a></h3>
+					</div>
+					<div class="content">
+                    	<php>$hot_tv=ff_mysql_vod('cid:3;limit:10;order:vod_gold desc,vod_hits desc');</php>			
+						<ul class="ul-top">
+                        	<fflist name="hot_tv" id="ppvod">
+							<li><span><strong>{$ppvod.vod_gold}</strong></span><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></li>
+                            </fflist>
+                        </ul>
+						<!-- // ul-top End -->
+					</div>
+				</div>
+				<!-- // topBox End -->	
+			</div>
+		</div>
+		
+	</div>
+	<!-- // maxBox End -->
+
+	<!-- 动漫内容结束-->
+    <!-- 综艺娱乐内容开始 -->
+	<div class="maxBox" id="variety">
+		<div class="box ui-qire fn-clear">
+			<div class="conBox fn-left" id="qire-variety">
+				<div class="caption fn-clear">		
+					<h2 class="hide-txt fn-left"><a href="{:getlistname(4,'list_url')}">综艺娱乐<em>Variety Show</em></a></h2>
+				</div>
+				<div class="content">
+					<div class="ui-tab-item ui-tab-item-hot">
+						<div class="sideRow fn-left">
+							<php>$focus=ff_mysql_vod('limit:1;cid:4;order:vod_stars desc,vod_addtime desc')</php>
+                            <fflist name="focus" id="ppvod">
+							<div class="ui-focus">
+								<a class="play-pic" href="{$ppvod.vod_readurl}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_name}</label>
+								</a>
+								<ul class="ui-focus-text">
+									<li><strong>状态：</strong>{$ppvod.vod_title}</li>
+									<li style="height:20px; overflow:hidden;"><strong>主持人：</strong>{$ppvod.vod_actor|ff_search_url}
+									</li>
+									<li>
+										<strong>简介：</strong>{$ppvod.vod_content|msubstr=0,76}...
+									</li>
+								</ul>
+							</div>
+                            </fflist>
+							<!-- // ui-focus End -->
+							<div class="ui-will">
+								<h4>今日好看的综艺节目</h4>
+								<ul class="ui-will-cnt">
+                                	<php>$today_tv_hot=ff_mysql_vod('cid:4;limit:5;order:vod_hits_day desc,vod_id desc;');</php>
+                                    <fflist name="today_tv_hot" id="ppvod">
+									<li><span style="float:right; color:#C06">{$ppvod.vod_hits_day}℃</span>
+                                    <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a><span style="padding-left:5px; color:#999;">{$ppvod.vod_title}</span></li>
+                                    </fflist>
+								</ul>
+							</div>
+							<!-- // ui-synch End -->
+						</div>
+						<!-- // sideRow End -->
+						
+						<!-- 综艺娱乐热门开始-->
+						<php>$tv_hot=ff_mysql_vod('cid:4;limit:1,6;order:vod_stars desc,vod_addtime desc');</php>
+						<ol class="pic-list pic-list-focus fn-right">
+                        	<fflist name="tv_hot" id="ppvod">
+							<li>
+								<a class="play-pic" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+									<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+									<label class="time">{$ppvod.vod_title}</label>
+								</a>
+								<p><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p>
+								<p class="txt">{$ppvod.vod_actor|ff_search_url}</p>
+								<p class="txt">
+									<span class="ratbar">
+										<span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+									</span>
+									<strong class="ratbar-num">{$ppvod.vod_gold}</strong>
+								</p>
+							</li>
+						    </fflist>
+                        </ol>
+						<!-- // pic-list End -->
+					</div>
+					<!-- // ui-tab-item End -->
+					   <!-- 综艺娱乐热门结束 -->
+			  </div>
+			</div>
+			<!-- // conBox End -->
+ 
+            <div class="sideBar fn-right">
+				<div class="ui-sort ui-sort-variety">
+					<div class="caption fn-clear">
+						<span><a href="{:getlistname(4,'list_url')}">更多</a></span>
+						<h3>综艺推荐</h3>
+					</div>
+					<div class="content">
+						<dl class="long">
+                        	<php>$tuijian_zy=ff_mysql_vod('limit:15;stars:1;order:vod_id desc;cid:4')</php>
+                            <fflist name="tuijian_zy" id="ppvod">
+							<dd><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,6}</a></dd>
+                            </fflist>
+						</dl>
+					</div>
+				</div>
+				<!-- // ui-sort End -->	
+				<div class="ui-top-tab fn-right">
+					<div class="caption">
+						<h3><a href="{:getlistname(4,'list_url')}">综艺排行榜</a></h3>
+					</div>
+					<div class="content">
+                    	<php>$hot_tv=ff_mysql_vod('cid:4;limit:10;order:vod_gold desc,vod_hits desc');</php>			
+						<ul class="ul-top">
+                        	<fflist name="hot_tv" id="ppvod">
+							<li><span><strong>{$ppvod.vod_gold}</strong></span><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></li>
+                            </fflist>
+                        </ul>
+						<!-- // ul-top End -->
+					</div>
+				</div>
+				<!-- // topBox End -->	
+			</div>
+		</div>
+		
+	</div>
+	<!-- // maxBox End -->
+	<!-- 综艺约了内容结束-->
+    <include file="Home:pp_bottom_search" />
+	<div class="maxBox" id="links">
+		<div class="caption fn-clear">
+			<span><a href="mailto:{$email}" target="_blank" rel="nofollow">申请友链</a></span>
+			<h2>友情链接</h2>
+		</div>
+		<div class="content">
+			<ul class="ul-link">
+            	<fflist name="list_link" id="ppvod">
+				<li><a href="{$ppvod.link_url}" target="_blank">{$ppvod.link_name}</a></li>
+                </fflist>
+			</ul>
+			<!-- // ul-link End -->
+		</div>
+	</div>
+	<!-- // maxBox End -->
+</div>
+<include file="Home:pp_footer" />
+</body>
+</html>

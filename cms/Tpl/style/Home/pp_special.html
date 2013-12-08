@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$title}</title>
+    <meta name="keywords" content="{$special_keywords|default='影视专题关键字'}">
+    <meta name="description" content="{$special_description|default='影视专题描述'}">
+    <include file="./Public/tpl/home/header.html" />
+    <link href="{$tpl}css/reset.css" type="text/css" rel="stylesheet">
+    <link href="{$tpl}css/base.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        .box2 {
+            border: solid 1px #CCC;
+            margin: 5px;
+            padding: 3px;
+        }
+
+        .head {
+            font-weight: bold;
+            font-size: 20px;
+            color: #e12160;
+            font-family: 微软雅黑 黑体 长城黑体;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .listtitle {
+            padding: auto 5px auto 5px;
+        }
+
+        .special_l span {
+            padding-right: 5px;
+        }
+
+        .special_l li {
+            border-bottom: dotted 1px #CCC;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <include file="Home:pp_header" />
+        <div style="width: 960px; margin: 0 auto;">
+            <div class="special box2">
+                <h3>
+                    <div class="position"><a href="{$root}">首页</a></label> > <a href="{$url_special}">专题</a> > {$special_name}</div>
+                </h3>
+                <ul>
+                    <a href="{$special_readurl}">
+                        <img style="width:100%;" src="{$special_banner}" alt="专题《{$special_name}》" /></a>
+                    <h2 class="head"><a href="{$special_readurl}">{$special_name}</a></h2>
+                    <p class="content">{$special_content}</p>
+                </ul>
+            </div>
+            <div class="special box2">
+                <h3>
+                    <div><a href="{$special_readurl}" class="head">详细视频</a></div>
+                </h3>
+                
+                <div style="width: 663px; float: left;border-right: dotted 1px #CCC;">
+                    <ul class="special_l show-list list-mode">
+                        <fflist name="list_vod" id="ppvod">
+                        <li>
+                        <a class="play-pic" target="_blank" href="{$ppvod.vod_readurl}">
+                            <img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+                            <span class="play-icon">&nbsp;</span>
+                        </a>
+                        <h5><a target="_blank" href="{$ppvod.vod_readurl}">{$ppvod.vod_name}</a><span style="padding-left:15px; color:#999; font-weight:normal;">{$ppvod.vod_title}</span></h5>
+                        <p class="actor"> 
+                            <em>主演:</em>
+                            {$ppvod.vod_actor|ff_search_url}
+                        </p>
+                        <p class="type">
+                        <em style="float:left">类型：</em>
+                        <a href="{$ppvod.list_url}" style="float:left">{$ppvod.list_name}</a>
+                        <em style="float:left; padding-left:15px;">评分：</em>
+                        <span class="ratbar" style="margin-top:6px;">
+                            <span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+                        </span>
+                        <strong class="ratbar-num" style="color:#3AB7E9; font-weight:normal; float:left;">{$ppvod.vod_gold}</strong>
+                        <strong class="ratbar-num" style="color:#999; font-weight:normal; float:left; padding-left:5px;">[{$ppvod.vod_golder}人评]</strong>
+                        <em style="float:left; padding-left:15px;">人气：</em>
+                        <span style="float:left; color:#3AB7E9;">{$ppvod.vod_hits}℃</span>
+                        </p><p class="plot">
+                            <em>剧情：</em>
+                            {$ppvod.vod_content}
+                        </p>
+                        <p class="more-desc"><a class="more" target="_blank" href="{$ppvod.readurl}">详细</a></p>
+                        </li></fflist>
+                    </ul>
+                </div>
+                <div style="width: 260px; float: left;overflow:hidden; margin-left:5px;">
+                    <div class="vodlist_r box">
+                        <div class="top">
+                            <h3><a href="{$url_special}" class="head">热门专题</a></h3>
+                        </div>
+                        <ul>
+                            <php>$special_hits = ff_mysql_special('limit:10;order:special_hits desc');</php>
+                            <fflist name="special_hits" id="Fflist1"><li><em>{$i}</em><a href="{$ppvod.special_readurl}">{$ppvod.special_name|msubstr=0,20}</a></li></fflist>
+                        </ul>
+                    </div>
+                    <div class="vodlist_r box">
+                        <div class="top">
+                            <h3><a href="{$special_readurl}">详细资讯</a></h3>
+                        </div>
+                        <ul>
+                            <fflist name="list_news" id="Fflist2"><li><em>{$i}</em><a href="{$ppvod.news_readurl}">{$ppvod.news_name|msubstr=0,20}</a></li></fflist>
+                        </ul>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+
+            </div>
+        </div>
+
+        <div class="blank" style="clear: both;"></div>
+        {$special_hits_insert}
+    <include file="Home:pp_footer" />
+    </div>
+</body>
+</html>

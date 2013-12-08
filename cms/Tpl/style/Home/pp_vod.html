@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>百度影音《{$vod_name}》在线观看-{$vod_name}剧情介绍-{$sitename}-最新最快的百度影音电影网！</title>
+<meta name="keywords" content="{$vod_name}全集在线,{$vod_name}百度影音,{$vod_name}剧情介绍,{$vod_name}高清影片">
+<meta name="description" content="{$vod_name}剧情:{$vod_content|h|msubstr=0,80}">
+<include file="Home:p_header" />
+</head>
+<body>
+<include file="Home:pp_header" />
+<!-- // wrap Start -->
+<div class="wrap w960">
+	<!-- // wrap Start -->
+	<div class="position w960 fn-clear">
+		<div class="fn-left">您现在的位置：<a href="{$root}">首页</a>〉<a href="{$list_url}">{$list_name}</a>〉<a href="{$vod_readurl}">{$vod_name}</a>
+		</div>
+		<div class="share fn-right">
+			<!-- Baidu Button BEGIN -->
+                <div id="bdshare" class="bdshare_b" style="line-height: 12px;"><img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg" />
+                    <a class="shareCount"></a>
+                </div>
+            <script type="text/javascript" id="bdshare_js" data="type=button&uid=802316" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+            <!-- Baidu Button END -->
+		</div>
+	</div>
+	<!-- // position End -->    
+    <div id="detail-nav">
+        <ul class="highlight">
+            <li id="back-detail-top" class="back-to-top">
+                <a href="javascript:void(0);">Back to Top</a>
+            </li>
+            <li id="detail-list-nav" class="nav-item">
+                <p>在线观看</p>
+                <a href="#detail-list">在线观看</a>
+            </li>
+            <li id="latest-focus-nav" class="nav-item">
+                <p>相关推荐</p>
+                <a href="#latest-focus">相关推荐</a>
+            </li>
+            <li id="comment-nav" class="nav-item">
+                <p>网友评论</p>
+                <a href="#Comment">网友评论</a>
+            </li>
+        </ul>		
+    </div>
+    <div class="maxBox" id="detail-box">
+		<div class="box box-blue">
+			<div class="detail-cols fn-clear">
+				<div class="detail-pic fn-left">
+					<img width="225" height="300" src="{$vod_picurl}" alt="{$vod_name}">	
+				</div>	
+				<!-- // detail-pic End -->
+				<div class="detail-title fn-right" style="position:relative;">
+					<h2>{$vod_name}</h2>
+					<div class="rating-box fn-right" style="position:absolute; right:0px; top:3px;">
+						<div class="rating-panle">
+							<div class="rating-self">
+                            	<div class="gold">
+                                    <div>
+                                    <span class="Gold"></span>
+                                    <span class="Goldnum">{$vod_gold}</span><span class="golder">[<span class="Golder">{$vod_golder}</span>人]</span></div>
+                                </div>
+							</div>
+						</div>
+					</div>
+					<!-- // rating-box End -->
+				</div>
+				<!-- // detail-title End -->
+				<div class="detail-info fn-left">
+					<div class="info fn-clear">
+						<dl style="height:24px; overflow:hidden;">
+							<dt>主演：</dt>
+							<dd>{$vod_actor|ff_search_url}</dd>
+						</dl>	
+						<dl style="height:24px; overflow:hidden;">
+							<dt>状态：</dt>
+							<dd><span class="color">
+                            <in name="list_id" value="3,4,15,16,17,18,19,20,21,22"><notempty name="vod_continu">
+                            连载至{$vod_continu}<eq name="list_pid" value="4">期<else/>集</eq></p></notempty>
+                            <else />
+                            {$vod_title}
+                            </in>
+                            </span>
+                            </dd>
+						</dl>
+						<dl class="fn-left">
+							<dt>类型：</dt>
+							<dd><a href="{$list_url}">{$list_name}</a></dd>
+						</dl>
+						<dl class="fn-right">
+							<dt>导演：</dt>
+							<dd>{$vod_director|default='未知'}</dd>
+						</dl>
+						<dl class="fn-left">
+							<dt>语言：</dt>
+							<dd><span>{$vod_language|default='未知'}</span></dd>
+						</dl>
+						<dl class="fn-right">
+                        	<php>$count=M('cm')->where(array('cm_cid'=>$vod_id))->select();</php>
+							<dd><a class="link" href="#Comment"><strong id="commnum">{:count($count)}</strong>条评论</a></dd>
+						</dl>
+						<dl class="fn-left">
+							<dt>时间：</dt>
+							<dd><span id="addtime">{$vod_addtime|date='Y-m-d h:m:s',###}</span></dd>
+						</dl>
+						<dl class="fn-right">
+							<dt>年份：</dt>
+							<dd><span>{$vod_year|default='未知'}</span></dd>
+						</dl>	
+						<dl>	
+							<dt>剧情：</dt>
+							<dd>{$vod_content|msubstr=0,65}...<a class="link detail-desc cboxElement" href="#detail-intro">详细剧情</a></dd>
+						</dl>
+					</div>
+					<!-- // info End -->
+						
+					<div class="detail-sect">
+						<div class="interest-sect fn-left user-bt">
+							<a class="sect-btn fav" href="javascript:void(0);"><span>收藏</span></a>						
+						</div>
+						<!-- // interest_sect End -->
+						<div class="interest-rss fn-left user-bt">
+							<a class="rss-btn sect-btn" id="dingyue" href="{$vod_rssurl}"><span>订阅</span></a>
+						</div>
+					</div>	
+					<!-- // detail-sect End -->
+ 
+					<div class="play-mode">
+						<dl class="play-mode-list">
+                        	<volist name="vod_playlist" id="ppvod">
+							<dd><a title="{$ppvod.playername}" id="{$ppvod.playname}-pl" href="#{$ppvod.playname}-pl-list"><span>{$ppvod.playername}</span></a></dd>
+                            </volist>
+                        </dl>
+					</div>
+					<!-- // play-mode End -->
+				</div>
+				<!-- // detail-info End -->
+			</div>	
+			<!-- // detail-cols End -->	
+		</div>
+        <div style="margin-top:10px; clear:both;"></div>
+		<div class="maxBox" id="detail-list">
+            <div class="box">
+            		<volist name="vod_playlist" id="ppvod">
+                	<a name="{$ppvod.playname}"></a>  
+                    <div class="play-list-box" id="{$ppvod.playname}-pl-list">
+                    <div class="caption fn-clear">
+                        <h4><a href="#body"><img src="{$tpl}images/playlogo/{$ppvod.playname}.gif" alt=""></a></h4>
+                        <div class="play-page fn-right"></div>
+                    </div>
+                    <div class="content">
+						<p class="play-list">
+                        <volist name="ppvod['son']" id="ppvodson">
+                        <a target="_blank" href="{$ppvodson.playurl}">{$ppvodson.playname}</a>
+                        </volist>
+                        </p>
+                    </div>
+                	</div>
+                    </volist>
+            </div>
+		</div>
+        <div class="maxBox" id="detail-intro">
+		<div class="box box-blue">
+			<div class="caption bigCaption">
+				<h2>《<strong>{$vod_name}</strong>》简介：</h2>
+			</div>
+			<p style="margin:8px 15px; line-height:22px;">{:ff_content_url($vod_content,$Tag)}<br /><a href="{$root}">{$sitename}</a></p>
+		</div>
+		</div>
+    	<div class="maxBox" id="latest-focus">
+		<div class="box box-blue">
+			<div class="caption bigCaption">
+				<h2>喜欢看"<strong>{$vod_name}</strong>"的人也喜欢：</h2>
+			</div>
+			<ol class="pic-list">
+            	<php>$hot_up = ff_mysql_vod('cid:'.$list_id.';limit:7;order:vod_up desc,vod_addtime desc');</php>
+                <volist name="hot_up" id="ppvod">
+                <if condition="$i lt 8">
+                <li>
+					<a class="play-pic" target="_blank" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+						<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+						<span class="play-icon">&nbsp;</span>
+						<label class="bg">&nbsp;</label>
+						<label class="time">{$ppvod.vod_title}</label>
+					</a>
+					<p><a target="_blank" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7}</a></p>
+				</li>
+                </if>
+                </volist>
+            </ol>
+			<!-- // pic-list End -->
+			<ul class="txt-list txt-list-small">
+            <php>$hot_up1 = ff_mysql_vod('cid:'.$list_id.';limit:8,15;order:vod_up desc,vod_addtime desc');</php>
+            	<volist name="hot_up1" id="ppvod">
+				<li><span><if condition="$i lt 10">0{$i}<else />{$i}</if>.</span><a target="_blank" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,7} / {$ppvod.vod_title}</a></li>
+                </volist>
+            </ul>
+			<!-- // txt-list End -->
+		</div>
+		</div>
+        <div id="Comment" class="maxBox">评论加载ING...</div>
+	</div>
+</div>
+{$vod_hits_insert}
+<include file="Home:pp_footer" />
+</body>
+</html>

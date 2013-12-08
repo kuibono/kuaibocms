@@ -1,0 +1,100 @@
+﻿<!-- // Header Start -->
+<div class="header">
+	<div class="topBar">
+	<div class="w960 fn-clear">
+    	<div class="fn-left">
+        <div style="text-align:left;color:#e12160;">
+		快播影视改版，更新更快更及时，清记住快播影视域名：kuaiboyingshi.com
+		</div>
+        </div>
+		<div class="a-link fn-right">
+			<p>
+				<a id="a-home" class="a-clo home" href="javascript:void(0);" rel="nofollow">设置首页</a><em>&nbsp;</em>
+				<a class="a-clo fav" href="javascript:void(0);" rel="nofollow">加入收藏</a><em>&nbsp;</em>
+				<a id="a-lang" class="color" href="{$tpl}快播影视.url" target="_self" rel="nofollow">添加桌面快捷方式</a>
+			</p>
+		</div>
+	</div>
+	</div>
+	<!-- // topBar Start -->
+<div class="headBar w960 fn-clear">
+	<div class="logo fn-left">
+		<a href="{$root}" title="{$sitename}"><img class="png-img" src="{$tpl}images/logo.png" alt="{$sitename}"></a>
+	</div>
+	<!-- // Logo End -->
+	<div class="searchBar fn-right">
+		<div class="hisBox fn-left">
+			<div class="looked-box" id="history">
+				<span class="his-tip">历史观看记录</span>
+			</div>
+		</div>
+		<!-- // hisBox End -->
+		
+		<div class="searchBox fn-right">
+			<div class="search">
+<form id="ffsearch" name="ffsearch" method="POST" action="{$root}index.php?s=vod-search" onSubmit="return qrsearch();">
+<input type="text" id="wd" name="wd" class="input-txt input-clear" value="{$wd}" />
+<input type="submit"   class="input-btn" value="" />
+</form>
+			</div>
+		</div>
+		<!-- // searchBox End -->
+		<div class="hotKeys">
+			<strong>热门搜索：</strong>
+			{$hotkey}
+		</div>
+		 <!-- // hotKeys End -->
+	</div>
+	<!-- // searchBar End -->	
+</div>
+<!-- // headBar End -->
+<div class="menuBar">
+	<div class="menu w960 fn-clear">
+		<ul>
+			<li <if condition="__SELF__=='/'">class="current"</if>><a href="{$root}"><span>首页</span></a></li>
+            <volist name="list_menu" id="ppvod">
+			<li <eq name="ppvod.list_id" value="$list_id">class="current"</eq><eq name="ppvod.list_id" value="$list_pid">class="current"</eq>>
+                <a href="{$ppvod.list_url}">
+                <span>{$ppvod.list_name}</span>
+                </a>
+            </li>
+            </volist>
+			<li <if condition="strchr(__SELF__,'hot')">class="current"</if>><a href="{:ff_mytpl_url('my_hot.html')}"><span>排行榜</span></a></li>
+			<li <if condition="strchr(__SELF__,'new')">class="current"</if>><a href="{:ff_mytpl_url('my_new.html')}"><span>最近更新</span></a></li>
+			<li><a href="/special-show-p.html"><span>专题</span></a></li>
+           
+		</ul>
+		<p class="help-link">
+			<a class="gb" href="{$url_guestbook}" target="_blank">给我留言</a>
+		</p>
+	</div>
+	<!-- // Menu End -->
+</div>
+<div class="navBar">	
+		<div class="nav w960 fn-clear">				
+			<div class="index-tags fn-clear">
+				<div class="index-tags-tv fn-left">
+                <label class="tv">电视剧：</label>
+                <volist name="list_menu" id="ppvod">
+                	<in name="ppvod.list_id" value="2">
+                	<volist name="ppvod.son" id="ppvodson">
+                    <a href="{$ppvodson.list_url}">{$ppvodson.list_name}</a><em>|</em>
+                    </volist>
+                    </in>
+                </volist>
+                </div>
+                <div class="index-tags-movie fn-right">
+                <label class="movie">电影：</label>
+                <volist name="list_menu" id="ppvod">
+                	<in name="ppvod.list_id" value="1">
+                	<volist name="ppvod.son" id="ppvodson">
+                    <a href="{$ppvodson.list_url}">{$ppvodson.list_name}</a><em>|</em>
+                    </volist>
+                    </in>
+                </volist>
+                </div>
+			</div>
+		</div>
+		<!-- // Nav End -->
+</div>
+</div>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{$title}</title>
+<meta name="keywords" content="<notempty name="list_keywords">{$list_keywords}<else/>最新{$list_name},{$keywords}</notempty>">
+<meta name="description" content="最新{$list_name}包含的影片有<volist name='vod_list' id='ppvod'>{$ppvod.vod_name|msubstr=0,10},</volist>完全免费在线观看！">
+<include file="Home:p_header" />
+</head>
+<body>
+<include file="Home:pp_header" />
+<!-- // wrap Start -->
+<div class="wrap w960">
+	<!-- // wrap Start -->
+	<div class="position w960 fn-clear">
+		<div class="fn-left">您现在的位置：<a href="{$root}">首页</a>〉<span>搜索&nbsp;<notempty name="search_wd">&nbsp;<span style="color:#b80a52">{$search_wd}</span>&nbsp;</notempty>结果</span>
+		</div>
+		<div class="share fn-right">
+			<!-- Baidu Button BEGIN -->
+                <div id="bdshare" class="bdshare_b" style="line-height: 12px;"><img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg" />
+                    <a class="shareCount"></a>
+                </div>
+            <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=802316" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+            <!-- Baidu Button END -->
+		</div>
+	</div>	
+	<!-- // position End -->    
+    <div class="maxBox" id="listBox">
+        <div class="box">
+            <div class="conBox search-box">
+                <php>$vod_list = ff_mysql_vod('tag:'.$tag_name.';limit:8;page:true;order:vod_addtime desc,vod_id desc');$page = $vod_list[0]['page'];</php>
+                <ul class="show-list list-mode" id="contents">
+                    <volist name="vod_list" id="ppvod">
+                        <li>
+                        <a class="play-pic" target="_blank" href="{$ppvod.vod_readurl}">
+                            <img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+                            <span class="play-icon">&nbsp;</span>
+                        </a>
+                        <h5><a target="_blank" href="{$ppvod.vod_readurl}">{$ppvod.vod_name}</a><span style="padding-left:15px; color:#999; font-weight:normal;">{$ppvod.vod_title}</span></h5>
+                        <p class="actor"> 
+                            <em>主演:</em>
+                            {$ppvod.vod_actor|ff_search_url}
+                        </p>
+                        <p class="type">
+                        <em style="float:left">类型：</em>
+                        <a href="{$ppvod.list_url}" style="float:left">{$ppvod.list_name}</a>
+                        <em style="float:left; padding-left:15px;">评分：</em>
+                        <span class="ratbar" style="margin-top:6px;">
+                            <span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+                        </span>
+                        <strong class="ratbar-num" style="color:#3AB7E9; font-weight:normal; float:left;">{$ppvod.vod_gold}</strong>
+                        <strong class="ratbar-num" style="color:#999; font-weight:normal; float:left; padding-left:5px;">[{$ppvod.vod_golder}人评]</strong>
+                        <em style="float:left; padding-left:15px;">人气：</em>
+                        <span style="float:left; color:#3AB7E9;">{$ppvod.vod_hits}℃</span>
+                        </p><p class="plot">
+                            <em>剧情：</em>
+                            {$ppvod.vod_content}
+                        </p>
+                        <p class="more-desc"><a class="more" target="_blank" href="{$ppvod.readurl}">详细</a></p>
+                        </li>
+                    </volist>
+				</ul>
+                <div class="sortBox list-page">
+                    <div class="pages" id="pages">{$page}</div>					
+                </div>
+                <!-- // list-page End -->
+            </div>
+            <!-- // conBox End -->
+        </div>
+        <div class="boot"></div>
+    </div>
+</div>
+<include file="Home:pp_footer" />
+</body>
+</html>

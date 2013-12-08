@@ -1,0 +1,14 @@
+<script language="javascript">var Root='{$root}';var Sid='{$sid}';var Cid='{$list_id}';<if condition="$sid eq 1">var Id='{$vod_id}';<else />var Id='{$news_id}';</if></script>
+<script language="javascript" src="__PUBLIC__/js/jquery.js" charset="utf-8"></script>
+<link href="{$tpl}css/reset.css" type="text/css" rel="stylesheet">
+<link href="{$tpl}css/base.css" type="text/css" rel="stylesheet">
+<link href="{$tpl}css/colorbox.css" type="text/css" rel="stylesheet">
+<link href="{$tpl}css/qirebox.css" type="text/css" rel="stylesheet">
+<link href="{$tpl}css/jquery.autocomplete.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+    $(function () { 
+     $(".w960 img").error(function () {
+        $(this).attr("src", "{$tpl}images/0.jpg");
+    });   
+    });
+</script>
