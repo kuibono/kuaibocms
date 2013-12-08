@@ -1,0 +1,52 @@
+.acInput {
+	width: 200px;
+}
+
+.ac_results {
+	width: 390px;
+	padding: 3px;
+	margin-left: -1px;
+	border: 1px solid #18c2c8;
+	background-color: #fff;
+	overflow: hidden;
+	z-index: 9;
+}
+
+.ac_results ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-position: outside;
+	list-style: none;
+	color:#444;
+}
+
+.ac_results ul li {
+	margin: 0px;
+	height: 30px;
+	line-height: 30px;	
+	display: block;
+	font-size: 12px;
+	overflow: hidden;
+	border-bottom: 1px solid #cef0f1;
+	cursor:pointer;
+}
+.ac_results ul li strong{
+	color: #ed145b;
+}
+.ac_results ul li a{
+	display: block;
+	padding: 0 5px;
+}
+.ac_results ul li a:hover{
+	color: #333;
+	text-decoration: none;
+}
+
+.acLoading {
+	background : url('indicator.gif') right center no-repeat;
+}
+
+.ac_over{
+	background: #a8e3e5;
+	color: #fff;
+}

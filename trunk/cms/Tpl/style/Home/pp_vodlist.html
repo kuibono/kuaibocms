@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>最近更新{$list_name}-{$list_name}频道-{$sitename}百度影音在线观看！</title>
+<meta name="keywords" content="<notempty name="list_keywords">{$list_keywords}<else/>最新{$list_name},{$keywords}</notempty>">
+<meta name="description" content="<notempty name="list_keywords">{$list_description}<else/>{$description}</notempty>">
+<include file="Home:p_header" />
+</head>
+<body>
+<include file="Home:pp_header" />
+<!-- // wrap Start -->
+<div class="wrap w960">
+	<!-- // wrap Start -->
+	<div class="position w960 fn-clear">
+		<div class="fn-left">您现在的位置：<a href="{$root}">首页</a>〉<a href="{:getlistname('$list_id','list_url')}">{$list_name}</a>
+		</div>
+		<div class="share fn-right">
+			<!-- Baidu Button BEGIN -->
+                <div id="bdshare" class="bdshare_b" style="line-height: 12px;"><img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg" />
+                    <a class="shareCount"></a>
+                </div>
+            <script type="text/javascript" id="bdshare_js" data="type=button&uid=802316" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+            <!-- Baidu Button END -->
+		</div>
+	</div>	
+	<!-- // position End -->
+ 
+	<div class="maxBox" id="listBox">
+		<div class="box fn-clear">
+			<div class="l-h conBox fn-left">
+ 				<div class="sortBox fn-clear">
+					<ul class="viewMode">
+						<li id="viewList" class="active"><a href="javascript:void(0);" data="t-2" class="listv">列表模式</a></li>
+						<li id="viewGrid"><a href="javascript:void(0);" data="t-1" class="listv">海报模式</a></li>
+					</ul>
+					<p>
+                              <?php           
+           echo "<a href=".$root."vod-show-id-".$_GET[id]; ?>-order-vod_addtime.html <?php if($_GET[order]=="vod_addtime") echo "class='active order'"; ?>><span>按时间</span></a><em>|</em>
+           <?php           
+           echo "<a href=".$root."vod-show-id-".$_GET[id]; ?>-order-vod_hits.html <?php if($_GET[order]=="vod_hits") echo "class='active order'"; ?>><span>按人气</span></a><em>|</em>
+           <?php           
+           echo "<a href=".$root."vod-show-id-".$_GET[id]; ?>-order-vod_gold.html <?php if($_GET[order]=="vod_gold") echo "class='active order'"; ?>><span>按评分</span></a></p>
+					<div class="pages short-page fn-right">
+					</div>					
+				</div>
+           
+				<!-- // sortBox End --> 
+<php> if($_GET[order])
+    $s_order=$_GET[order]." desc,vod_hits desc";
+    else
+    $s_order="vod_addtime desc,vod_hits desc";  $vod_list=ff_mysql_vod('cid:'.$list_id.';year:'.$_GET[year].';area:'.$_GET[area].';language:'.$_GET[language].';limit:12;page:true;order:'.$s_order);
+	$page = $vod_list[0]['page'];
+</php>
+
+           <ul class="show-list list-mode fn-clear" id="contents">
+           <neq name="vod_list.0.count" value="0"><volist name="vod_list" id="ppvod">
+					<li>
+	<a class="play-pic" target="_blank" href="{$ppvod.vod_readurl}">
+		<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}" />
+		<span class="play-icon">&nbsp;</span>
+	</a>
+	<h5><a target="_blank" href="{$ppvod.vod_readurl}">{$ppvod.vod_name}</a><span style="padding-left:15px; color:#999; font-weight:normal;">{$ppvod.vod_title}</span></h5>	
+ 
+	<p class="actor"> 
+        <em>主演:</em>
+		{$ppvod.vod_actor|ff_search_url}
+         </p>
+         <p class="type">
+         <em style="float:left">类型：</em>
+         <a href="{$ppvod.list_url}" style="float:left">{$ppvod.list_name}</a>
+         <em style="float:left; padding-left:15px;">评分：</em>
+         <span class="ratbar" style="margin-top:6px;">
+         <span class="ratbar-item" style="width:<php>echo($ppvod['vod_gold']*10)</php>%;">&nbsp;</span>
+         </span>
+         <strong class="ratbar-num" style="color:#3AB7E9; font-weight:normal; float:left;">{$ppvod.vod_gold}</strong>
+         <strong class="ratbar-num" style="color:#999; font-weight:normal; float:left; padding-left:5px;">[{$ppvod.vod_golder}人评]</strong>
+         <em style="float:left; padding-left:15px;">人气：</em>
+         <span style="float:left; color:#3AB7E9;">{$ppvod.vod_hits}℃</span>
+         </p>
+         <p class="plot">
+		<em>剧情：</em>
+		{$ppvod.vod_content|msubstr=0,100,'utf-8',true}…	</p>
+                
+	<p class="more-desc"><a class="more" target="_blank" href="{$ppvod.vod_readurl}">详细</a></p>
+    
+</li>			
+</volist>
+    <else/>
+       	 <ul>该分类暂无数据！</ul>
+      </neq> 
+ 
+		</ul>
+				<!-- // show-list End -->
+				
+				<div class="sortBox list-page fn-clear" style="*margin-bottom:15px;">
+					<div class="pages">{$page}
+</div>
+				</div>
+				<!-- // list-page End -->
+			</div>
+			<!-- // conBox End -->
+            <!--右侧多条件筛选开始 -->
+	<?php
+$s_area=array('大陆','香港','台湾','港台','欧美','日本','韩国','日韩','新加坡','泰国','印度','俄罗斯','其他');
+$s_language=array('国语','粤语','韩语','日语','英语','泰语','其他');
+$s_year=array('2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000','1999');
+if($_GET[year]) $u_year="-year-".$_GET[year];else $u_year=NULL;if($_GET[area]) $u_area="-area-".$_GET[area];else $u_area=NULL;if($_GET[language]) $u_language="-language-".$_GET[language];else $u_order=NULL;if($_GET[order]) $u_order="-order-".$_GET[order];else $u_order=NULL;
+?>
+ 
+			<div class="r-h list-cata fn-right">
+	<div class="sideBox syBox" id="sy-movie">
+		<div class="caption">
+            <h3 class="sy-show hide-txt"><a href="{:getlistname(1,'list_url')}">电影索引</a></h3>
+        </div>
+        <div class="sy-show-box content">
+		</div>
+	</div>
+	<div class="sideBox syBox" id="sy-tv">
+                <div class="caption">
+            <h3 class="sy-show hide-txt"><a href="{:getlistname(2,'list_url')}" data="2">电视剧索引</a></h3>
+        </div>
+        <div class="sy-show-box show">
+          <eq name='list_pid' value='2'>
+            <dl class="dl-cata"> <dt>按类型</dt><php>$cidarrr=array(15,16,17,18,19);</php><volist name="cidarrr" id="ppcid"><dd  <eq name="ppcid" value="$list_id"> class="active"</eq>><a href="{:getlistname($ppcid,'list_url')}">{:getlistname($ppcid)}</a></dd> </volist><else/><dl class="dl-cata"> <dt>按类型</dt><php>$cidarrr=array(8,9,10,11,12,13,14,28);</php><volist name="cidarrr" id="ppcid"><dd  <eq name="ppcid" value="$list_id"> class="active"</eq>><a href="{:getlistname($ppcid,'list_url')}" >{:getlistname($ppcid)}</a></dd> </volist>         
+          </eq>
+</dl>
+ 
+          <dl class="dl-cata">
+				<dt>按地区：</dt>
+                <dd ><a href="{$ppvod.list_url}">全部</a></dd>
+            <?php 
+            foreach($s_area as $aid=>$avalue){ if($_GET[area]==$avalue) $class=" class='active'";else $class=NULL;echo "<dd $class><a href=".$root."vod-show-id-".$_GET[id].$u_year."-area-".urlencode($avalue).$u_language.$u_order.".html>".$avalue."</a></dd>";} ?></dl></eq>
+          <dl class="dl-cata">
+				<dt>按年代：</dt>
+                <dd ><a href="{$ppvod.list_url}" >全部</a></dd>
+          <?php foreach($s_year as $yid=>$yvalue){ if($_GET[year]==$yvalue) $class=" class='active'";else $class=NULL;echo "<dd $class><a href=".$root."vod-show-id-".$_GET[id]."-year-".$yvalue.$u_area.$u_language.$u_order.".html>".$yvalue."</a></dd>";} ?></dl>
+          
+          <dl class="dl-cata">
+				<dt>按语言：</dt>
+                <dd ><a href="{$ppvod.list_url}"   data="letter-0">全部</a></dd>
+          <?php foreach($s_language as $yid=>$vvalue){ if($_GET[language]==$vvalue) $class=" class='active'";else $class=NULL;echo "<dd $class><a href=".$root."vod-show-id-".$_GET[id]."-language-".$vvalue.$u_area.$u_year.$u_order.".html>".$vvalue."</a></dd>";} ?></dl>
+           <dl class="dl-cata">
+						<dt>热门排行：</dt>
+			</dl>
+		<div class="content">					
+						<ul class="ul-top">
+								 <php>$vod_mov_top =ff_mysql_vod('limit:11;order:vod_hits desc');</php>
+                        <fflist name="vod_mov_top" id="ppvod">
+						 <li><span>{$ppvod.vod_year}</span><a target="_blank" href="{$ppvod.vod_readurl}">{$ppvod.vod_name}[{$ppvod.list_name|msubstr=0,2}]</a></li>
+                         
+                         </fflist>								</ul>
+						<!-- // ul-top End -->
+					</div>
+	</div>
+	</div>
+	<!-- // syBox End -->
+ 
+</div>
+<!-- // list-cata End -->	
+<script type="text/javascript"> 
+parms=eval('({"id":2,"mcid":41,"order":"time"})');
+function parseurl(rr){
+  var url='/vod-showlist';
+  for(var c in rr){
+     if(rr[c]!='0'){
+    url=url+"-"+c+"-"+rr[c];
+	}
+  }
+  url=url+"-ajax";
+  return url;
+}
+$('.listv').click(
+function (e){
+var url='';
+if(parms!=undefined&&parms!=null){
+var curdata=$(this).attr('data').split('-');
+parms[curdata[0]]=curdata[1];
+if(curdata[1]=='1'){
+$("#contents").removeClass('list-mode');
+$("#contents").addClass('grid-mode');
+}else{
+$("#contents").removeClass('grid-mode');
+$("#contents").addClass('list-mode');
+}
+url=parseurl(parms);
+$('.listv').parent().removeClass('active');
+$(this).parent().addClass('active');
+}
+return false;
+}
+);
+</script>
+            <!--右侧多条件筛选结束 -->
+		</div>
+	</div>
+	<!-- // maxBox End -->
+</div>
+<include file="Home:pp_footer" />
+</body>
+</html>

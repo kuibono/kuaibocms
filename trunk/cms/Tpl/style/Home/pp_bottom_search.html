@@ -1,0 +1,54 @@
+<div class="maxBox" id="index">
+    <div class="box box-blue silder-max">
+        <div class="silder-box" id="index-silder">
+        <ol class="index-list">
+        	<fflist name="list_menu" id="ppvod">
+            <in name="ppvod.list_id" value="1,2">
+            <li>
+                <dl>
+                    <dt>{$ppvod.list_name}</dt>
+                    <fflist name="ppvod.son" id="ppvodson">
+					<dd><a target="_blank" href="{$ppvodson.list_url}">{$ppvodson.list_name}</a></dd>
+                    </fflist>
+                </dl>
+            </li>
+            </in>
+            </fflist>
+            <li>
+            	<php>$hot_dm=ff_mysql_vod('cid:3;limit:8;order:vod_hits desc;vod_addtime desc');</php>
+                <dl class="dm">
+                    <dt>动漫</dt>
+                    <fflist name="hot_dm" id="ppvod">
+                    <dd><a target="_blank" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,6}</a></dd>
+                    </fflist>
+                </dl>
+            </li>
+            <li>
+            	<php>$hot_dm=ff_mysql_vod('cid:4;limit:16;order:vod_hits desc;vod_addtime desc');</php>
+                <dl class="zy">
+                    <dt>综艺娱乐</dt>
+                    <fflist name="hot_dm" id="ppvod">
+                    <dd><a target="_blank" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,5}</a></dd>
+                    </fflist>		
+                </dl>
+            </li>
+        </ol>
+        </div>
+        <div class="index-search fn-clear">
+        <!-- // search End -->
+            <div class="search fn-left">
+                <form id="ffsearch" name="ffsearch" method="post" action="{$root}index.php?s=vod-search">
+                    <input type="text" id="wd" name="wd" class="input-txt" value="请在此处输入影片片名或演员名称。" onfocus="if(this.value=='请在此处输入影片片名或演员名称。'){this.value='';}" onblur="if(this.value==''){this.value='请在此处输入影片片名或演员名称。';};">
+                    <input type="submit" class="input-btn" value="" />
+                </form>
+            </div>
+        <!-- // search End -->
+            <div class="hotKeys fn-right">
+                <strong>热门搜索：</strong>
+                {$hotkey}
+            </div>
+        <!-- // hotKeys End -->
+        </div>
+	<!-- // searchBox End -->
+	</div>
+</div>

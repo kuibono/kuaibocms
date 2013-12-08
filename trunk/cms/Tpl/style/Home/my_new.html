@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>最新更新影片-{$sitename}</title>
+<meta name="keywords" content="{$keywords}">
+<meta name="description" content="{$description}">
+<include file="Home:p_header" />
+</head>
+<body>
+<include file="Home:pp_header" />
+<!-- // wrap Start -->
+<div class="wrap w960">
+	<!-- // wrap Start -->
+	<div class="position w960 fn-clear">
+		<div class="fn-left">您现在的位置：<a href="{$root}">首页</a>〉最新更新100部影片
+		</div>
+		<div class="share fn-right">
+			<!-- Baidu Button BEGIN -->
+                <div id="bdshare" class="bdshare_b" style="line-height: 12px;"><img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg" />
+                    <a class="shareCount"></a>
+                </div>
+            <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=802316" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+            <!-- Baidu Button END -->
+		</div>
+	</div>
+	<!-- // position End -->    
+    <div class="maxBox" id="lasted-box">
+		<div class="box">
+	        <div class="caption bigCaption fn-clear">
+				<h2 class="hide-self fn-left">最近100个更新</h2>
+				<div class="lasted-type fn-left">类型</div>
+				<div class="lasted-tags fn-left">主演</div>
+				<div class="lasted-time fn-right">更新时间</div>
+			</div>
+			<div class="content">
+				<ul class="top-list">
+                	<php>$vod_news = ff_mysql_vod('limit:100;order:vod_addtime desc');</php>
+                    <fflist name="vod_news" id="ppvod">
+					<li>
+						<div class="lasted-num fn-left">{$i}</div>
+						<h5 class="show-tipinfo"><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name|msubstr=0,15}</a>/
+                        <a href="{$ppvod.vod_readurl}" style="color:#999">
+                        {$ppvod.vod_title}
+                        </a></h5>
+						<div class="lasted-type fn-left"><a href="{$ppvod.list_url}">{$ppvod.list_name}</a></div>
+                        <div class="lasted-tags fn-left">{$ppvod.vod_actor|ff_search_url}</div>
+						<div class="lasted-time fn-right">{$ppvod.vod_addtime|date='Y-m-d h:i:s',###}</div>  <!--- 创建时间 --->
+						<div class="fn-clear"></div>
+						<div class="tipInfo">
+							<a class="play-pic" href="#" target="_blank">
+								<img src="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}">
+								<span class="play-icon">&nbsp;</span>
+								<label class="bg">&nbsp;</label>
+								<label class="time">{$ppvod.vod_title}</label> <!-- 总共多少集 --->
+							</a>
+							<dl>
+								<dt>{$ppvod.vod_name}</dt>
+								<dd><label>主演：</label>{$ppvod.vod_actor|ff_search_url}</dd>   <!-- 主演 --->
+								<dd class="jq"><label>剧情：</label>{$ppvod.vod_content}…</dd>  <!-- 剧情简介，是否需要截断字符串 --->
+								<dd class="bg"><label>状态：</label>{$ppvod.vod_title}</dd>    <!-- 视频集数信息 --->
+								<dd class="bg"><label>更新时间：</label>{$ppvod.vod_addtime|date='Y-m-d h:i:s',###}</dd>  <!-- 更新时间 --->
+							</dl>
+						</div>
+					</li>
+                    </fflist>
+                <ul>
+			</div>
+		</div>
+	</div>
+    <include file="Home:pp_bottom_search" />
+</div>
+<script language="javascript">FF.History.Insert('{$vod_name}','{$vod_readurl}',10,7,'','');</script>
+{$vod_hits_insert}
+<include file="Home:pp_footer" />
+</body>
+</html>
