@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "KuaiboInfoCollector", ".", "{2BCC9A78-4A37-4CA8-B15F-451B1B91439E}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.VirtualPath = "/KuaiboInfoCollector"
+		Debug.AspNetCompiler.PhysicalPath = "..\KuaiboInfoCollector\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\KuaiboInfoCollector\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/KuaiboInfoCollector"
+		Release.AspNetCompiler.PhysicalPath = "..\KuaiboInfoCollector\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\KuaiboInfoCollector\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "17863"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BCC9A78-4A37-4CA8-B15F-451B1B91439E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCC9A78-4A37-4CA8-B15F-451B1B91439E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
