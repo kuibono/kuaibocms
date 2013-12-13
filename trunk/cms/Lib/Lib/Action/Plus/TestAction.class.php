@@ -3,10 +3,10 @@ class TestAction extends Action{
 	public function Test()
 	{
 		$m=M("File");
-		$data["Type"]=1;
-		$data["name"]="123456.rmvb";
+		$data["file_type"]=1;
+		$data["file_name"]="123456.rmvb";
 		
-		$m->add($data);
+		$m->data($data)->add();
 		
 		$this->display('./Public/plus/api/debug.html');
 	}

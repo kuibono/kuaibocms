@@ -15,21 +15,10 @@ class ApiAction extends Action{
     	
     	//$vods->vod_hits=$hits+300;
     	$Vod->vod_hits_lasttime=time();
-    	$Vod->vod_hits_day+=300;
-    	$Vod->vod_hits_week+=300;
-    	$Vod->vod_hits_month+=300;
-    	
-    	//$this->trace('hits',$vods->vod_hits);
-    	
-    	//$data['vod_hits']=$vods->vod_hits+300;
-    	//$data['vod_hits_lasttime']=time();
-    	
-    	//$vods->setField('vod_hits','vod_hits'+300); 
+    	$Vod->vod_hits_day+=30;
+    	$Vod->vod_hits_week+=30;
+    	$Vod->vod_hits_month+=30;
     	$Vod->save();
-    	//$vods->save();
-    	
-    	//$name=$this->filter("[www.baidu.com] www.baidu.com 高清test123");
-    	//$this->display('./Public/plus/api/debug.html');
 		$this->ajaxReturn($name,true);
 	}
 	
@@ -80,6 +69,10 @@ class ApiAction extends Action{
 		$s=preg_replace("/\[.*\]/i","",$s);
 		$s=preg_replace("/\【.*\】/i","",$s);
 		return $s;
+	}
+
+	public function addKuaibo($url){
+		
 	}
 }
 ?>
