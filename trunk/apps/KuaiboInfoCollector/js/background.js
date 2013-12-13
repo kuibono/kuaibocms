@@ -2,7 +2,7 @@
     if (changeInfo.status == "loading") {
         return false;
     }
-    //chrome.tabs.executeScript(tabId, { file: "js/jquery-1.10.2.min.js" });
+    chrome.tabs.executeScript(tabId, { file: "js/jquery-1.10.2.min.js" });
     chrome.tabs.executeScript(tabId, { file: "js/common.js" });
     if(tab.url.indexOf("barr.kuaibo.com")>-1){
         chrome.tabs.executeScript(tabId, { file: "js/barr.kuaibo.js" });
