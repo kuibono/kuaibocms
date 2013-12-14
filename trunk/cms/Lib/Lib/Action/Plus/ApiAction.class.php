@@ -70,9 +70,256 @@ class ApiAction extends Action{
 		$s=preg_replace("/\【.*\】/i","",$s);
 		return $s;
 	}
+    
+    function get_extension($file)
+    {
+        return pathinfo($file, PATHINFO_EXTENSION);
+    }
 
-	public function addKuaibo($url){
-		
+    
+    public function addFav()
+    {
+        //$url=$_POST["url"];
+        $url="bdhd://309530108|9A4F8B871D27B7BCF1FCC478735F8017|My盛Lady10高清TV粤语.rmvb";
+        $name=$_POST["name"];
+        $hasError=false;
+        
+        $m=M("File");
+        
+        
+        if(strpos($url,"qvod://")===0)
+        {
+            $data["file_type"]=1;
+            //以qvod://开头
+            //如： qvod://307474681|593F9EDAB509C7ECC47FB21E964C3345BFF89A48|My盛Lady粤语05.rmvb|
+            $url=str_replace("qvod://","",$url);
+            if(substr($url,-1)!="|")
+            {
+                $url=$url+"|";
+            }
+            $names=explode("|",$url);
+            $len=count($names);
+            if($len==4)
+            {
+                //307474681|593F9EDAB509C7ECC47FB21E964C3345BFF89A48|My盛Lady粤语05.rmvb|
+                $data["file_length"]=$names[0];
+                //trace($names[0]);
+                $data["file_name"]=$names[1];
+                if($name===null)
+                {
+                    $data["file_title"]=$this->filter($names[2]);
+                }
+                else
+                {
+                    $data["file_title"]=$this->filter($name);
+                }
+                $data["file_ext"]=$this->get_extension($names[2]);
+            }
+            else if($len==3)
+            {
+                //593F9EDAB509C7ECC47FB21E964C3345BFF89A48|My盛Lady粤语05.rmvb|
+                $data["file_length"]=0;
+                $data["file_name"]=$names[0];
+                 if($name===null)
+                {
+                    $data["file_title"]=$this->filter($names[1]);
+                }
+                else
+                {
+                    $data["file_title"]=$this->filter($name);
+                }
+                $data["file_ext"]=$this->get_extension($names[1]);
+            }
+            else{
+                //有错的格式
+                $hasError=true;
+            }
+            
+        }
+        else if(strpos($url,"bdhd://")===0)
+        {
+            $data["file_type"]=2;
+            //以bdhd://开头
+            //如： bdhd://277246698|7522A0A0A1EC43496262F59399F7D7FB|My盛Lady[高清TV粤语]01.rmvb
+            $url=str_replace("bdhd://","",$url);
+
+            $names=explode("|",$url);
+            $len=count($names);
+            if($len==3)
+            {
+                //277246698|7522A0A0A1EC43496262F59399F7D7FB|My盛Lady[高清TV粤语]01.rmvb
+                $data["file_length"]=$names[0];
+                $data["file_name"]=$names[1];
+                if($name===null)
+                {
+                    $data["file_title"]=$this->filter($names[2]);
+                }
+                else
+                {
+                    $data["file_title"]=$this->filter($name);
+                }
+                $data["file_ext"]=$this->get_extension($names[2]);
+            }
+            else if($len==2)
+            {
+                //7522A0A0A1EC43496262F59399F7D7FB|My盛Lady[高清TV粤语]01.rmvb
+                $data["file_length"]=0;
+                $data["file_name"]=$names[0];
+                 if($name===null)
+                {
+                    $data["file_title"]=$this->filter($names[1]);
+                }
+                else
+                {
+                    $data["file_title"]=$this->filter($name);
+                }
+                $data["file_ext"]=$this->get_extension($names[1]);
+            }
+            else{
+                //有错的格式
+                $hasError=true;
+            }
+            
+        }
+        
+        if($hasError==true){
+            $this->ajaxReturn("输入地址格式有错");
+        }
+        else{
+            $f=$m->where('file_name=\''.$data["file_name"].'\'')->find();
+            if($f!==null)
+            {
+                if(strtotime(date("Y-m-d"))>$f["file_last_share_time"])//今天0:00
+                {
+                    $data["file_last_share_time"]=0;
+                }
+
+                if(mktime(0,0,0,date('m'),date('d')-date('w')+1,date('Y'))>$f["file_last_share_time"]){//周一0:00
+                    $data["file_share_week"]=0;
+                }
+                if(mktime(0,0,0,date('m'),1,date('Y'))>$f["file_last_share_time"]){
+                    $data["file_share_month"]=0;
+                }
+                $data["file_share"]=$f["file_share"]+1;
+                //dump($f["file_share"]);
+                $data["file_share_day"]=$f["file_share_day"]+1;
+                $data["file_share_week"]=$f["file_share_week"]+1;
+                $data["file_share_month"]=$f["file_share_month"]+1;
+                $data["file_last_share_time"]=time();
+                
+                $m->where('file_name=\''.$data["file_name"].'\'')->save($data);
+            }
+            else{
+                $data["file_time"]=time();
+                $data["file_read"]=0;
+                $data["file_read_day"]=0;
+                $data["file_read_week"]=0;
+                $data["file_read_month"]=0;
+                $data["file_share"]=0;
+                $data["file_share_day"]=0;
+                $data["file_share_week"]=0;
+                $data["file_share_month"]=0;
+                $data["file_last_read_time"]=time();
+                $data["file_last_share_time"]=time();
+                $m->data($data)->add();
+            }
+            //$this->ajaxReturn("成功");
+            $this->display('./Public/plus/api/debug.html');
+        }
+    }
+	public function add(){
+		$url=$_POST["url"];
+        //$url="qvod://307474681|593F9EDAB509C7ECC47FB21E964C3345BFF89A48|My盛Lady粤语05.rmvb|";
+        $hasError=false;
+        
+        $f=M("File");
+        $data["file_time"]=time();
+        $data["file_read"]=0;
+        $data["file_read_day"]=0;
+        $data["file_read_week"]=0;
+        $data["file_read_month"]=0;
+        $data["file_share"]=0;
+        $data["file_share_day"]=0;
+        $data["file_share_week"]=0;
+        $data["file_share_month"]=0;
+        $data["file_last_read_time"]=time();
+        $data["file_last_share_time"]=time();
+        
+        if(strpos($url,"qvod://")===0)
+        {
+            $data["file_type"]=1;
+            //以qvod://开头
+            //如： qvod://307474681|593F9EDAB509C7ECC47FB21E964C3345BFF89A48|My盛Lady粤语05.rmvb|
+            $url=str_replace("qvod://","",$url);
+            if(substr($url,-1)!="|")
+            {
+                $url=$url+"|";
+            }
+            $names=explode("|",$url);
+            $len=count($names);
+            if($len==4)
+            {
+                //307474681|593F9EDAB509C7ECC47FB21E964C3345BFF89A48|My盛Lady粤语05.rmvb|
+                $data["file_length"]=$names[0];
+                //trace($names[0]);
+                $data["file_name"]=$names[1];
+                $data["file_title"]=$this->filter($names[2]);
+                $data["file_ext"]=$this->get_extension($names[2]);
+            }
+            else if($len==3)
+            {
+                //593F9EDAB509C7ECC47FB21E964C3345BFF89A48|My盛Lady粤语05.rmvb|
+                $data["file_length"]=0;
+                $data["file_name"]=$names[0];
+                $data["file_title"]=$this->filter($names[1]);
+                $data["file_ext"]=$this->get_extension($names[1]);
+            }
+            else{
+                //有错的格式
+                $hasError=true;
+            }
+            
+        }
+        else if(strpos($url,"bdhd://")===0)
+        {
+            $data["file_type"]=2;
+            //以bdhd://开头
+            //如： bdhd://277246698|7522A0A0A1EC43496262F59399F7D7FB|My盛Lady[高清TV粤语]01.rmvb
+            $url=str_replace("bdhd://","",$url);
+
+            $names=explode("|",$url);
+            $len=count($names);
+            if($len==3)
+            {
+                //277246698|7522A0A0A1EC43496262F59399F7D7FB|My盛Lady[高清TV粤语]01.rmvb
+                $data["file_length"]=$names[0];
+                $data["file_name"]=$names[1];
+                $data["file_title"]=$this->filter($names[2]);
+                $data["file_ext"]=$this->get_extension($names[2]);
+            }
+            else if($len==2)
+            {
+                //7522A0A0A1EC43496262F59399F7D7FB|My盛Lady[高清TV粤语]01.rmvb
+                $data["file_length"]=0;
+                $data["file_name"]=$names[0];
+                $data["file_title"]=$this->filter($names[1]);
+                $data["file_ext"]=$this->get_extension($names[1]);
+            }
+            else{
+                //有错的格式
+                $hasError=true;
+            }
+            
+        }
+        
+        if($hasError==true){
+            $this->ajaxReturn("输入地址格式有错");
+        }
+        else{
+            $f->data($data)->add();
+            //$this->ajaxReturn("成功");
+            $this->display('./Public/plus/api/debug.html');
+        }
 	}
 }
 ?>
