@@ -79,8 +79,10 @@ class ApiAction extends Action{
     
     public function addFav()
     {
-        //$url=$_POST["url"];
-        $url="bdhd://309530108|9A4F8B871D27B7BCF1FCC478735F8017|My盛Lady10高清TV粤语.rmvb";
+        $url=$_POST["url"];
+        //$url="qvod%3A%2F%2F976911282%7C65CFE912F8719A9B41B18805B4E44C06F9BD2C94%7C%E5%A4%9C%E5%85%B3%E9%97%A8%E4%B9%8B%E6%AC%B2%E6%9C%9B%E4%B9%8B%E8%8A%B1BD%E4%B8%AD%E5%AD%97.rmvb%7C";
+        $url=urldecode($url);
+        //dump($url);
         $name=$_POST["name"];
         $hasError=false;
         
@@ -183,7 +185,7 @@ class ApiAction extends Action{
         }
         
         if($hasError==true){
-            $this->ajaxReturn("输入地址格式有错");
+            $this->ajaxReturn("erroe format");
         }
         else{
             $f=$m->where('file_name=\''.$data["file_name"].'\'')->find();
